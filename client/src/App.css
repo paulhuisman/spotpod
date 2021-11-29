@@ -1,0 +1,71 @@
+@import-normalize;
+/* bring in normalize.css styles */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  touch-action: pan-x pan-y;
+  height: 100% 
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+}
+
+@font-face {
+  font-family: Circular-Book;
+  src: url('assets/fonts/Circular-Book.ttf');
+}
+@font-face {
+  font-family: Circular-Medium;
+  src: url('assets/fonts/Circular-Medium.ttf');
+}
+@font-face {
+  font-family: Circular-Bold;
+  src: url('assets/fonts/Circular-Bold.ttf');
+}
+
+.hide-scroll-bar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scroll-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.footer-nav__link,
+.footer-nav__link span,
+.footer-nav__link svg {
+  transition: all 0.2s ease-in-out;
+}
+
+.footer-nav__link:hover span,
+.footer-nav__link:hover svg {
+  color: #555;
+  fill: #555;
+}
+
+.footer-nav__link.active span {
+  color: #121212;
+}
+
+.footer-nav__link.active svg {
+  fill: #121212;
+}
+
+.arrow-down {
+  border: solid #F3A74D;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 2px;
+
+  transform: rotate(45deg);
+}
+.arrow-down--inverted {
+  transform: rotate(-135deg);
+}
