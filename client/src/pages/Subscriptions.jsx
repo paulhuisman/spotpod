@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import Player from 'components/snippets/Player'
-import Loader from 'components/snippets/Loader'
+import Player from 'components/Player'
+import Loader from 'components/Loader'
 import { ReactComponent as PlayIcon } from 'assets/svg/play.svg'
 
 const Subscriptions = () => {

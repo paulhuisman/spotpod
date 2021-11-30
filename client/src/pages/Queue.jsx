@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import Player from 'components/snippets/Player'
-import UserEpisode from 'components/snippets/UserEpisode'
-import Loader from 'components/snippets/Loader'
-import Button from 'components/snippets/Button'
+import Player from 'components/Player'
+import UserEpisode from 'components/UserEpisode'
+import Loader from 'components/Loader'
+import Button from 'components/Button'
 import { ReactComponent as PlayIcon } from 'assets/svg/play.svg'
 
 const filterTypeLabels = {

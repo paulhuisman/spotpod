@@ -4,8 +4,8 @@ import { Switch, Route } from 'react-router-dom'
 
 import './App.css'
 
-import { Login, Dashboard, Queue, Subscriptions, Discover } from 'components/pages'
-import FooterNav from 'components/snippets/FooterNav'
+import { Login, Dashboard, Queue, Subscriptions, Discover } from 'pages'
+import FooterNav from 'components/FooterNav'
 
 import { generateAccessToken } from 'services/auth'
 import { setAccessToken } from 'redux/slices/authSlice'

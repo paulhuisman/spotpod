@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from 'components/snippets/Button'
+import Button from 'components/Button'
 import { timeFormatter } from 'helpers/timeFormatter'
 
 const UserEpisode = ({ episode, playShow, queue = false }) => {
