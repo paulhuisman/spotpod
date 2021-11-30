@@ -1,8 +1,5 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import spotifyDataFetcher from '../services/spotifyDataFetcher'
-import Player from './Player'
-import SpotifyWebApi from 'spotify-web-api-node'
 
 const Discover = () => {
   const accessToken = useSelector(state => state.auth.accessToken)

@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import Player from './Player'
-import UserEpisode from './UserEpisode'
-import Loader from './Loader'
-import { ReactComponent as PlayIcon } from '../assets/svg/play.svg'
+import Player from 'components/snippets/Player'
+import UserEpisode from 'components/snippets/UserEpisode'
+import Loader from 'components/snippets/Loader'
+import Button from 'components/snippets/Button'
+import { ReactComponent as PlayIcon } from 'assets/svg/play.svg'
 
 const filterTypeLabels = {
   newest: 'Newest first',
@@ -30,10 +31,7 @@ const Queue = () => {
       <div className="flex justify-between relative mb-8">
       <h1 className="text-2xl font-heading font-black">Your queue</h1>
         <div className="hidden rounded-full absolute inset-x-auto -top-8 bg-lime-500 h-32 w-32 opacity-50"></div>
-        <button className="rounded-xl uppercase font-bold text-xs pl-3 pr-2 bg-gradient-to-r from-blue-300 to-blue-600 text-white px-2">
-          <div className="inline mr-2">Play queue</div>
-          <PlayIcon />
-        </button>
+        <Button text="Play queue" icon={<PlayIcon />}>Play queue</Button>
       </div>
 
       { episodesFetchStatus === 'loading' ?

@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import spotifyDataFetcher from '../services/spotifyDataFetcher'
-import Player from './Player'
-import SpotifyWebApi from 'spotify-web-api-node'
+import Player from 'components/snippets/Player'
+import Loader from 'components/snippets/Loader'
+import { ReactComponent as PlayIcon } from 'assets/svg/play.svg'
 
 const Subscriptions = () => {
-  const accessToken = useSelector(state => state.auth.accessToken)
-
+  const newEpisodesList     = useSelector(state => state.episodes.list);
+  const episodesFetchStatus = useSelector(state => state.episodes.status);
   const [playingTrack, setPlayingTrack] = useState()
 
   function playShow(show) {
@@ -31,7 +31,7 @@ const Subscriptions = () => {
       </div>
 
       <div className="dashboard__player">
-        <Player accessToken={accessToken} trackUri={playingTrack?.uri} />
+        <Player trackUri={playingTrack?.uri} />
       </div>
     </div>
   )

@@ -11,7 +11,7 @@ const Login = () => {
   return (
     <div className="flex items-center justify-center h-screen animate-fade">
       <div>
-        <h1 className="-mt-20 block text-center text-4xl font-heading font-black mb-6">SpotPod</h1>
+        <h1 className="-mt-20 block text-center text-4xl font-heading font-black mb-4">SpotPod</h1>
         <a id="login" className="-mt-20 rounded-xl uppercase font-bold text-xs py-3 px-4 bg-gradient-to-r from-blue-300 to-blue-600 text-white" href={SPOTIFY_AUTH_URL}>
           <div className="inline mr-2">Login With Spotify</div>
           <svg width="20" height="20" viewBox="0 2 20 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="inline fill-current text-white">

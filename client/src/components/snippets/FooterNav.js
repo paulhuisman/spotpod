@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { ReactComponent as HomeIcon } from '../assets/svg/home.svg'
-import { ReactComponent as QueueIcon } from '../assets/svg/queue.svg'
-import { ReactComponent as SubscriptionIcon } from '../assets/svg/subscription.svg'
-import { ReactComponent as DiscoverIcon } from '../assets/svg/discover.svg'
+import { ReactComponent as HomeIcon } from 'assets/svg/home.svg'
+import { ReactComponent as QueueIcon } from 'assets/svg/queue.svg'
+import { ReactComponent as SubscriptionIcon } from 'assets/svg/subscription.svg'
+import { ReactComponent as DiscoverIcon } from 'assets/svg/discover.svg'
 
 const FooterNav = () => {
   return (

@@ -1,12 +1,13 @@
 import { useState, useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchShows } from '../redux/slices/showSlice'
-import { fetchNewEpisodes } from '../redux/slices/episodeSlice'
-import Player from './Player'
-import UserShow from './UserShow'
-import UserEpisode from './UserEpisode'
-import Loader from './Loader'
-import { ReactComponent as PlayIcon } from '../assets/svg/play.svg'
+import { fetchShows } from '../../redux/slices/showSlice'
+import { fetchNewEpisodes } from '../../redux/slices/episodeSlice'
+import Player from '../snippets/Player'
+import UserShow from '../snippets/UserShow'
+import UserEpisode from '../snippets/UserEpisode'
+import Loader from 'components/snippets/Loader'
+import Button from 'components/snippets/Button'
+import { ReactComponent as PlayIcon } from 'assets/svg/play.svg'
 
 const Dashboard = () => {
   const dispatch            = useDispatch()
@@ -17,6 +18,7 @@ const Dashboard = () => {
 
   const [playingUris, setPlayingUris] = useState([])
   const [showPlayer, setShowPlayer]   = useState(false)
+
 
   useEffect(() => {
     dispatch(fetchShows())
@@ -46,10 +48,7 @@ const Dashboard = () => {
     <div className="dashboard">
       <div className="flex justify-between mb-8 relative">
         <h1 className="text-2xl font-heading font-black">Your home</h1>
-        <button onClick={playQueue} className="rounded-xl uppercase font-bold text-xs pl-3 pr-2 bg-gradient-to-r from-blue-300 to-blue-600 text-white px-2">
-          <span className="inline mr-2">Play queue</span>
-          <PlayIcon />
-        </button>
+        <Button onClick={playQueue} text="Play queue" icon={<PlayIcon />}>Play queue</Button>
       </div>
 
       { showsFetchStatus === 'loading'  ?

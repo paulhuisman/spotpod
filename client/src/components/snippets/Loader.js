@@ -1,5 +1,5 @@
 import React from 'react'
-import { ReactComponent as DownloadIcon } from '../assets/svg/download.svg'
+import { ReactComponent as DownloadIcon } from 'assets/svg/download.svg'
 
 const Loader = () => {
   return (

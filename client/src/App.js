@@ -4,10 +4,11 @@ import { Switch, Route } from 'react-router-dom'
 
 import './App.css'
 
-import { Login, Dashboard, Queue, Subscriptions, Discover, FooterNav } from './components'
+import { Login, Dashboard, Queue, Subscriptions, Discover } from 'components/pages'
+import FooterNav from 'components/snippets/FooterNav'
 
-import { generateAccessToken } from './services/auth'
-import { setAccessToken } from './redux/slices/authSlice'
+import { generateAccessToken } from 'services/auth'
+import { setAccessToken } from 'redux/slices/authSlice'
 
 const App = () => {
   const dispatch = useDispatch()
