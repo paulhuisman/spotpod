@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  code: null,
+  deviceId: null,
   accessToken: null,
 }
 
@@ -9,8 +9,8 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setCode: (state, action) => {
-      state.code = action.payload
+    setDeviceId: (state, action) => {
+      state.deviceId = action.payload
     },
     setAccessToken: (state, action) => {
       state.accessToken = action.payload
@@ -19,6 +19,6 @@ export const authSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setCode, setAccessToken } = authSlice.actions
+export const { setDeviceId, setAccessToken } = authSlice.actions
 
 export default authSlice.reducer

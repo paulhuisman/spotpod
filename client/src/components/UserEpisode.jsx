@@ -1,39 +1,39 @@
 import React from 'react'
-import Button from 'components/Button'
-import { timeFormatter } from 'helpers/timeFormatter'
+import { timeFormatter } from 'helpers/dates'
+import { setMaxChars } from 'helpers/truncate'
 
-const UserEpisode = ({ episode, playShow, queue = false }) => {
-  function handlePlay() {
-    playShow(episode)
+const UserEpisode = ({ episode, playEpisode, variant }) => {
+  const handlePlay = () => {
+    playEpisode(episode)
   }
 
-  if(queue) {
+  if(variant === "queue") {
     return (
-      <div className="flex w-full animate-fade" onClick={handlePlay} key={episode.id}>
-        <div className="w-14 mr-6 border-r border-black relative">
-          <div className="w-14 pt-8 pr-6 text-lime-700 text-xxs text-right">{timeFormatter(episode.duration_ms)}</div>
-          <div className="w-6 h-6 bg-white rounded-full shadow absolute top-8 -right-4">
+      <div className="flex w-full cursor-pointer animate-fade bg-transparent" onClick={handlePlay} key={episode.id}>
+        <div className="w-14 lg:w-20 mr-6 border-r border-black relative">
+          <div className="w-14 lg:w-20 pt-8 lg:pt-11 pr-6 text-lime-700 text-xxs lg:text-xs text-right">{timeFormatter(episode.duration_ms)}</div>
+          <div className="w-6 h-6 bg-white rounded-full shadow absolute top-8 lg:top-12 -right-4">
             <div className="rounded-full bg-orange w-1 h-1 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
           </div>
         </div>  
 
-        <img className="w-24 h-24 lg:w-32 lg:h-32 object-cover mr-4 mb-4 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 ease-in-out" src={ episode.images[0].url } alt={ episode.name }/>
+        <img className="w-24 h-24 lg:w-32 lg:h-32 object-cover mr-4 mb-4 rounded-lg shadow hover:shadow-lg transition-shadow duration-300 ease-in-out" src={ episode.images[0].url } alt={ episode.name }/>
 
         <div className="mr-2 mb-6">
-          <h3 className="text-sm font-bold mb-1">{ episode.name }</h3>
-          <p className="text-xxs text-lime-700">{ episode.description.length > 80 ? `${episode.description.substring(0, 80)} ...` : episode.description }</p>
+          <h3 className="text-sm lg:text-base font-bold mb-1 active:underline">{ episode.name }</h3>
+          <p className="text-xxs lg:text-xs text-lime-700">{ episode.description.length > setMaxChars() ? `${episode.description.substring(0, setMaxChars())} ...` : episode.description }</p>
         </div>
       </div>
     )
   }
   else {
     return (
-      <div className="flex mb-4 w-full animate-fade" onClick={handlePlay} key={episode.id}>
-        <img className="w-20 h-20 lg:w-32 lg:h-32 object-cover mr-4 rounded-lg shadow hover:shadow-xl transition-shadow duration-300 ease-in-out" src={ episode.images[0].url } alt={ episode.name }/>
+      <div className="flex mb-4 w-full cursor-pointer animate-fade bg-transparent" onClick={handlePlay} key={episode.id}>
+        <img className="w-20 h-20 lg:w-32 lg:h-32 object-cover mr-4 rounded-lg shadow hover:shadow-lg transition-shadow duration-300 ease-in-out" src={ episode.images[0].url } alt={ episode.name }/>
     
         <div className="mr-2">
-          <h3 className="text-sm font-bold mb-1">{ episode.name }</h3>
-          <p className="text-xxs text-lime-700">{ episode.description.length > 100 ? `${episode.description.substring(0, 100)} ...` : episode.description }</p>
+          <h3 className="text-sm lg:text-base font-bold mb-1 active:underline">{ episode.name }</h3>
+          <p className="text-xxs lg:text-xs text-lime-700">{ episode.description.length > setMaxChars() ? `${episode.description.substring(0, setMaxChars())} ...` : episode.description }</p>
         </div>
         
         <button className="h-10 w-10 rounded-xl ml-auto my-auto bg-gradient-to-b from-lime-500 to-lime-700 text-white px-2">

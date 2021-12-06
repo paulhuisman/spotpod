@@ -1,4 +1,4 @@
-import { createSlice, nanoid, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import SpotifyWebApi from 'spotify-web-api-node'
 
 export const fetchShows = createAsyncThunk('shows/fetchShows', async (arg, { getState }) => {

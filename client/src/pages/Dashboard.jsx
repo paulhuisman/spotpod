@@ -2,12 +2,12 @@ import { useState, useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchShows } from '../redux/slices/showSlice'
 import { fetchNewEpisodes } from '../redux/slices/episodeSlice'
+import { playUris } from 'services/spotify'
+import Header from 'components/Header'
 import Player from 'components/Player'
 import UserShow from 'components/UserShow'
 import UserEpisode from 'components/UserEpisode'
 import Loader from 'components/Loader'
-import Button from 'components/Button'
-import { ReactComponent as PlayIcon } from 'assets/svg/play.svg'
 
 const Dashboard = () => {
   const dispatch            = useDispatch()
@@ -17,8 +17,7 @@ const Dashboard = () => {
   const episodesFetchStatus = useSelector(state => state.episodes.status);
 
   const [playingUris, setPlayingUris] = useState([])
-  const [showPlayer, setShowPlayer]   = useState(false)
-
+  const [togglePlayer, setTogglePlayer]   = useState(false)
 
   useEffect(() => {
     dispatch(fetchShows())
@@ -31,32 +30,31 @@ const Dashboard = () => {
   }, [showsList, dispatch])
 
   const playShow = (show) => {
-    setShowPlayer(true)
+    setTogglePlayer(true)
 
     setTimeout(() => {
       setPlayingUris([show.uri])
-    }, 200);
+    }, 250)
   }
-  
-  const playQueue = () => {
-    setShowPlayer(true)
 
-    setPlayingUris(newEpisodesList.map(episode => episode.uri))
+  const playEpisode = (episode) => {
+    setTogglePlayer(true)
+
+    setTimeout(() => {
+      playUris([episode.uri])
+    }, 250)
   }
 
   return (
     <div className="dashboard">
-      <div className="flex justify-between mb-8 relative">
-        <h1 className="text-2xl font-heading font-black">Your home</h1>
-        <Button onClick={playQueue} text="Play queue" icon={<PlayIcon />}>Play queue</Button>
-      </div>
+      <Header text="Your home" setTogglePlayer={setTogglePlayer} />
 
       { showsFetchStatus === 'loading'  ?
           <div className="min-w-full min-h-64 -mx-8 bg-lime-500 bg-opacity-75 mb-8 py-14">
             <Loader />
           </div>
         :
-        <div className="flex overflow-x-scroll bg-lime-500 mb-8 hide-scroll-bar -mx-8 pr-5 min-w-full">
+        <div className="flex overflow-x-scroll min-w-full bg-lime-500 mb-8 hide-scroll-bar -mx-8 pr-5 lg:rounded-lg">
           <div className="flex flex-nowrap min-w-full px-3 pl-6 py-6">
             {showsList?.map((show, i ,arr) => (
               <UserShow
@@ -80,14 +78,14 @@ const Dashboard = () => {
               <UserEpisode
                 episode={episode}
                 key={episode.uri}
-                playShow={playShow}
+                playEpisode={playEpisode}
               />
             ))}
           </>
         }
       </div>
 
-      { showPlayer &&
+      { togglePlayer &&
         <Player trackUris={playingUris} />
       }
     </div>

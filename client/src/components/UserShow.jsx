@@ -7,8 +7,8 @@ const UserShow = ({ show, playShow, last }) => {
 
   return (
     <div className={`inline-block px-2 animate-fade ${last ? 'pr-6' : ''}`} onClick={handlePlay} key={show.id}>
-      <div className="w-32 h-auto cursor-pointer max-w-xs overflow-hidden ">
-        <img className="w-32 h-32 object-cover rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out" src={ show.image } alt={ show.name }/>
+      <div className="w-32 lg:w-40 h-auto cursor-pointer max-w-xs overflow-hidden ">
+        <img className="w-32 h-32 lg:w-40 lg:h-40 object-cover rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out" src={ show.image } alt={ show.name }/>
     
         <div className="mt-3 mx-2">
           <h3 className="text-sm font-heading font-bold mb-1">{ show.publisher }</h3>

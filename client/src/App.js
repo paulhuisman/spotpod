@@ -32,7 +32,7 @@ const App = () => {
       })
     }
     else {
-      // TODO: refresh access token
+      // TODO: refresh token
     }
   }, [dispatch])
 

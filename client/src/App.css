@@ -32,10 +32,16 @@ body {
 .hide-scroll-bar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+  @screen lg {  
+    scrollbar-width: auto;
+  }
 }
 
 .hide-scroll-bar::-webkit-scrollbar {
   display: none;
+  @screen lg {  
+    display: block;
+  }
 }
 
 .footer-nav__link,

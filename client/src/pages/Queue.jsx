@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { playUris } from 'services/spotify'
 import Player from 'components/Player'
 import UserEpisode from 'components/UserEpisode'
 import Loader from 'components/Loader'
-import Button from 'components/Button'
-import { ReactComponent as PlayIcon } from 'assets/svg/play.svg'
+import Header from 'components/Header'
+import { updateOrder } from '../redux/slices/episodeSlice'
 
 const filterTypeLabels = {
   newest: 'Newest first',
@@ -13,38 +14,44 @@ const filterTypeLabels = {
 }
 
 const Queue = () => {
-  const newEpisodesList     = useSelector(state => state.episodes.list);
-  const episodesFetchStatus = useSelector(state => state.episodes.status);
+  const dispatch            = useDispatch()
+  const newEpisodesList     = useSelector(state => state.episodes.list)
+  const episodesFetchStatus = useSelector(state => state.episodes.status)
 
-  const [playingTrack, setPlayingTrack]       = useState()
-  const [showPlayer, setShowPlayer]           = useState(false)
+  const [togglePlayer, setTogglePlayer]       = useState(false)
   const [showFilter, setShowFilter]           = useState(false)
   const [queueFilterType, setQueueFilterType] = useState('newest')
 
-  function playShow(show) {
-    setShowPlayer(true)
-    setPlayingTrack(show)
+  const playEpisode = (episode) => {
+    setTogglePlayer(true)
+    
+    setTimeout(() => {
+      playUris([episode.uri])
+    }, 100)
+  }
+
+  const updateListSort = (sortType) => {
+    setShowFilter(false)
+    setQueueFilterType(sortType)
+
+    dispatch(updateOrder(sortType))
   }
 
   return (
     <div className="dashboard">
-      <div className="flex justify-between relative mb-8">
-      <h1 className="text-2xl font-heading font-black">Your queue</h1>
-        <div className="hidden rounded-full absolute inset-x-auto -top-8 bg-lime-500 h-32 w-32 opacity-50"></div>
-        <Button text="Play queue" icon={<PlayIcon />}>Play queue</Button>
-      </div>
+      <Header text="Your queue" setTogglePlayer={setTogglePlayer} />
 
       { episodesFetchStatus === 'loading' ?
           <Loader />
         :
           <div className="flex flex-col">
             <div className="flex h-12 w-full animate-fade">
-              <div className="w-14 mr-6 border-r border-black relative">
-                <div className="w-14 pr-6">&nbsp;</div>
+              <div className="w-14 lg:w-20 mr-6 border-r border-black relative">
+                <div className="w-14 lg:w-20 pr-6"></div>
               </div>  
-              <div className="flex font-bold text-sm relative">
+              <div className="flex font-bold text-sm lg:text-base relative">
                 <div className="mr-2">Sort queue by</div>
-                <div onClick={() => setShowFilter(!showFilter)} className="flex align-middle text-orange">
+                <div onClick={() => setShowFilter(!showFilter)} className="flex align-middle text-orange cursor-pointer">
                   <div className="mr-1">{filterTypeLabels[queueFilterType]}</div>
                   <div className={`${!showFilter ? "-mt-1" : ""}`}><span className={`arrow-down ${showFilter ? "arrow-down--inverted" : ""}`}></span></div>
                 </div>
@@ -53,10 +60,10 @@ const Queue = () => {
                     <ul className="py-1" aria-labelledby="dropdown">
                       {Object.entries(filterTypeLabels).map(([key, label], i) => (
                         <li className={key} key={key}>
-                            <a 
-                              onClick={() => {setQueueFilterType(key); setShowFilter(false)}} 
-                              className={`text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2 ${queueFilterType == key ? "text-orange" : ""}`}
-                            >{ label }</a>
+                          <a 
+                            onClick={() => updateListSort(key)} 
+                            className={`text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2 ${queueFilterType === key ? "text-orange" : ""}`}
+                          >{ label }</a>
                         </li>
                       ))}
                     </ul>
@@ -69,15 +76,15 @@ const Queue = () => {
               <UserEpisode
                 episode={episode}
                 key={episode.uri}
-                playShow={playShow}
-                queue={true}
+                playEpisode={playEpisode}
+                variant="queue"
               />
             ))}
           </div>
       }
 
-      { showPlayer &&
-        <Player trackUris={playingTrack?.uri} />
+      { togglePlayer &&
+        <Player />
       }
     </div>
   )

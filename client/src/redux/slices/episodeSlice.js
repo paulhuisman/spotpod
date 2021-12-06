@@ -1,7 +1,7 @@
-import { createSlice, nanoid, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import SpotifyWebApi from 'spotify-web-api-node'
 
-export const fetchNewEpisodes = createAsyncThunk('shows/fetchNewEpisodes', async (arg, { getState }) => {
+export const fetchNewEpisodes = createAsyncThunk('shows/fetchNewEpisodes', async (sort = 'newest', { getState }) => {
   const state = getState()
 
   // Check if accessToken exists in state
@@ -26,15 +26,31 @@ export const fetchNewEpisodes = createAsyncThunk('shows/fetchNewEpisodes', async
 
       episodesList.push(firstUnplayedEpisode)
     } catch (error) {
-      console.log('Error', error);
+      console.log('Error', error)
     }
   }))
 
   // Reorder episodes list based on release date
-  episodesList.sort((a, b) => new Date(b.release_date) - new Date(a.release_date)) 
+  // episodesList.sort((a, b) => new Date(b.release_date) - new Date(a.release_date)) 
+  orderEpisodes(episodesList)
 
   return episodesList 
 })
+
+const orderEpisodes = (episodesList, sortType) => {
+  switch (sortType) {
+    case 'alphabetical':
+      episodesList.sort((a, b) => new Date(b.title) - new Date(a.title)) 
+      break
+  
+    default:
+      // Newest first
+      episodesList.sort((a, b) => new Date(b.release_date) - new Date(a.release_date)) 
+      break
+  }
+
+  return episodesList
+}
 
 export const episodeSlice = createSlice({
   name: 'episodes',
@@ -44,6 +60,9 @@ export const episodeSlice = createSlice({
     error: null,
   },
   reducers: {
+    updateOrder(state, action) {
+      state.list = orderEpisodes(state.list, action.payload)
+    },
   },
   extraReducers: {
     [fetchNewEpisodes.pending]: (state, action) => {
@@ -59,5 +78,7 @@ export const episodeSlice = createSlice({
     },
   },
 })
+
+export const { updateOrder } = episodeSlice.actions
 
 export default episodeSlice.reducer
