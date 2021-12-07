@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { playUris } from 'services/spotify'
 import Player from 'components/Player'
@@ -10,17 +10,24 @@ import { updateOrder } from '../redux/slices/episodeSlice'
 const filterTypeLabels = {
   newest: 'Newest first',
   alphabetical: 'Alphabetical',
-  interest: 'Most interesting' 
+  // interest: 'Most interesting' 
 }
 
 const Queue = () => {
   const dispatch            = useDispatch()
   const newEpisodesList     = useSelector(state => state.episodes.list)
+  const listSortType        = useSelector(state => state.episodes.sortType)
   const episodesFetchStatus = useSelector(state => state.episodes.status)
 
   const [togglePlayer, setTogglePlayer]       = useState(false)
   const [showFilter, setShowFilter]           = useState(false)
   const [queueFilterType, setQueueFilterType] = useState('newest')
+
+  useEffect(() => {
+    if(listSortType !== null) {
+      setQueueFilterType(listSortType)
+    }
+  }, [])
 
   const playEpisode = (episode) => {
     setTogglePlayer(true)

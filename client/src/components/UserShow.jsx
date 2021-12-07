@@ -1,7 +1,7 @@
 import React from 'react'
 
 const UserShow = ({ show, playShow, last }) => {
-  function handlePlay() {
+  const handlePlay = () => {
     playShow(show)
   }
 

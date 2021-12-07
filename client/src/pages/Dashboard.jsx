@@ -11,10 +11,10 @@ import Loader from 'components/Loader'
 
 const Dashboard = () => {
   const dispatch            = useDispatch()
-  const showsList           = useSelector(state => state.shows.list);
-  const showsFetchStatus    = useSelector(state => state.shows.status);
-  const newEpisodesList     = useSelector(state => state.episodes.list);
-  const episodesFetchStatus = useSelector(state => state.episodes.status);
+  const showsList           = useSelector(state => state.shows.list)
+  const showsFetchStatus    = useSelector(state => state.shows.status)
+  const newEpisodesList     = useSelector(state => state.episodes.list)
+  const episodesFetchStatus = useSelector(state => state.episodes.status)
 
   const [playingUris, setPlayingUris] = useState([])
   const [togglePlayer, setTogglePlayer]   = useState(false)

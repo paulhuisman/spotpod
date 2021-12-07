@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit'
 import SpotifyWebApi from 'spotify-web-api-node'
 
 export const fetchNewEpisodes = createAsyncThunk('shows/fetchNewEpisodes', async (sort = 'newest', { getState }) => {
@@ -31,25 +31,26 @@ export const fetchNewEpisodes = createAsyncThunk('shows/fetchNewEpisodes', async
   }))
 
   // Reorder episodes list based on release date
-  // episodesList.sort((a, b) => new Date(b.release_date) - new Date(a.release_date)) 
-  orderEpisodes(episodesList)
+  const sortType = state.episodes.sortType ? state.episodes.sortType : 'newest'
+  episodesList = orderEpisodes(episodesList, sortType)
 
   return episodesList 
 })
 
 const orderEpisodes = (episodesList, sortType) => {
+  const sortedData = [...episodesList]
+
   switch (sortType) {
     case 'alphabetical':
-      episodesList.sort((a, b) => new Date(b.title) - new Date(a.title)) 
+      sortedData.sort((a, b) => a.name.localeCompare(b.name))
       break
   
-    default:
-      // Newest first
-      episodesList.sort((a, b) => new Date(b.release_date) - new Date(a.release_date)) 
+    case 'newest':
+      sortedData.sort((a, b) => new Date(b.release_date) - new Date(a.release_date)) 
       break
   }
 
-  return episodesList
+  return sortedData
 }
 
 export const episodeSlice = createSlice({
@@ -57,11 +58,13 @@ export const episodeSlice = createSlice({
   initialState: {
     list: [],
     status: 'idle',
+    sortType: 'newest',
     error: null,
   },
   reducers: {
     updateOrder(state, action) {
-      state.list = orderEpisodes(state.list, action.payload)
+      state.list = orderEpisodes(current(state.list), action.payload)
+      state.sortType = action.payload
     },
   },
   extraReducers: {

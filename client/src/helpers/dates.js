@@ -5,5 +5,5 @@ export const timeFormatter = (ms) => {
 
   const sec = obj.getSeconds()
   
-  return `${min}min, ${sec} sec`;
+  return `${min}min, ${sec} sec`
 }
