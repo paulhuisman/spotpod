@@ -21,7 +21,7 @@ export const fetchNewEpisodes = createAsyncThunk('shows/fetchNewEpisodes', async
 
       // Find the first show's episode that's not fully played
       const firstUnplayedEpisode = response.body.items.find(episode => {
-        return episode.resume_point.fully_played === false
+        return episode.resume_point?.fully_played === false
       })
 
       episodesList.push(firstUnplayedEpisode)
